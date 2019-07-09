@@ -1,5 +1,5 @@
 # data_structures
 
-# Autor: Jorge Ruiz.
+# Autor: Jorge Ruiz
 
 Listas doblemente ligadas.

@@ -43,7 +43,7 @@ class List(object):
     def add_end(self, element):
         new_node = self.Node(element)
 
-        if length == 0:
+        if self.length == 0:
             self.head = self.tail = new_node
         else:
             support_node = self.tail
@@ -62,7 +62,7 @@ class List(object):
     def add_start(self, element):
         new_node = self.Node(element)
 
-        if length == 0:
+        if self.length == 0:
             self.head = self.tail = new_node
         else:
             support_node = self.head
@@ -81,21 +81,26 @@ class List(object):
         new_node = self.Node(element)
 
         if self.length == 0 or index == -1:
-            self.add_start(new_node)
+            self.add_start(new_node.element)
         elif self.length == index:
-            self.add_end(new_node)
+            self.add_end(new_node.element)
         else:
             support_node = self.head
             i = 0
 
+            # Checar caso donde el indice es 1 mejor a la longitud.
             while (i < self.length):
-                if support_node.get_index(element) == index:
+                if self.get_index(support_node.element) == index:
                     new_node.previous = support_node.previous
                     new_node.next = support_node.next
+                    support_node.previous.next = new_node
+                    support_node.next.previous = new_node
                     support_node = new_node
 
                 support_node = support_node.next
                 i += 1
+
+            self.length += 1
 
 
     # Método para buscar un elemento, si el elemento está en la cabeza entonces
@@ -161,9 +166,77 @@ class List(object):
             self.length -= 1
 
 
-    #
+    # Método booleano que nos dice si un elemento está en la lista o no.
     def contains(self, element):
+        support_node = self.search_node(element)
+
+        if self.length == 0:
+            return False
+        else:
+            if support_node != None:
+                return True
+            else:
+                return False
+
+
+    # Método para obtener la reversa de la lista, simplemente creamos una vacía y
+    # mientras recorremos (en la pasada), vamos agregando al inicio en la nueva.
+    def reverse(self):
+        new_list = self.List()
         support_node = self.head
+
+        while support_node != None:
+            new_list.add_start(support_node.element)
+            support_node = support_node.next
+
+        return new_list
+
+
+    # Método para obtener la copia de la lista, simplemente creamos una vacía y
+    # mientras recorremos (en la pasada), vamos agregando al final en la nueva.
+    def get_copy(self):
+        new_list = self.List()
+        support_node = self.head
+
+        while support_node != None:
+            new_list.add_end(support_node)
+            support_node = support_node.next
+
+        return new_list
+
+
+    # Volvemos todo None y la longitud de la lista como 0
+    def clean(self):
+        self.head.previous = None
+        self.tail.next = None
+        self.head = self.tail = None
+        self.length = 0
+
+
+    # Sólo devolvemos el primer elemento de lalista.
+    def get_first(self):
+        if self.head != None and self.length != 0:
+            return self.head
+
+
+    # Sólo devolvemos el último elemento de lalista.
+    def get_last(self):
+        if self.tail != None and self.length != 0:
+            return self.tail
+
+
+    # Método que recorre la lista buscando el elemento con  el indice dado y si lo
+    # encuentra lo regresa.
+    def get(self, i):
+        support_node = self.head
+        j = 0
+
+        if i >= 0 and i < self.length:
+            while j < i:
+                support_node = support_node.next
+                j += 1
+
+            return support_node.element
 
 
     # Método que recibe un elemento y lo busca en la lista, si el elemento se
@@ -180,3 +253,53 @@ class List(object):
             i += 1
 
         return -1
+
+
+    # Primero descartamos las opciones donde no podrían ser iguales, que son:
+    # Si las longitudes son distintas, si el objeto recibido es nulo o si un elemento
+    # es nulo y en la otra no. Si no pasó todo esto entonces serán iguales.
+    def equals(self, recived_object):
+        if self.length != recived_object.length or recived_object == None:
+            return False
+        else:
+            own = self.head
+            unknown = recived_object.head
+
+            while unknown != None:
+                if unknown.element != own.element or (unknown == None and own != None):
+                    return False
+
+                unknown = unknown.next
+                own = own.next
+
+            return True
+
+
+    #
+    def to_string(self):
+        if self.length == 0:
+            return "[]"
+        else:
+            str = "["
+            current_node = self.head
+            t_node = self.tail
+
+            while current_node != t_node:
+                str += current_node.element + ","
+                current_node = current_node.next
+
+            str += t_node.element + "]"
+
+            return str
+
+
+
+
+
+if __name__ == '__main__':
+    l = List()
+    l.add_end("1")
+    l.add_end("2")
+    l.add_end("3")
+    l.add("4", 1)
+    print(l.to_string())
