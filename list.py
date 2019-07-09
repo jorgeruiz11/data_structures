@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+File: list.py
+Autor: Jorge Ruiz.
+'''
 
 # Clase para listas doblemente ligadas en python.
 class List(object):
