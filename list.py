@@ -90,6 +90,7 @@ class List(object):
 
             # Checar caso donde el indice es 1 mejor a la longitud.
             while (i < self.length):
+
                 if self.get_index(support_node.element) == index:
                     new_node.previous = support_node.previous
                     new_node.next = support_node.next
@@ -106,7 +107,7 @@ class List(object):
     # Método para buscar un elemento, si el elemento está en la cabeza entonces
     # regresamos la cabeza, si está en la cola regresamos la cola y si no recorremos
     # la lista hasta encontrarlo.
-    def search_node(self, element):
+    def get_node(self, element):
         head_node = self.head
         tail_node = self.tail
 
@@ -117,7 +118,7 @@ class List(object):
         else:
             while (head_node.next != None):
                 if head_node.element == element:
-                    return head_node
+                    return head_node #.element
                 else:
                     head_node = head_node.next
 
@@ -153,22 +154,22 @@ class List(object):
     # y lo quitamos de la lista (haciendo que los "apuntadores" de su siguiente y su anterior
     # ya no lo "señalen").
     def remove(self, element):
-        chosen = self.search_node(element)
+        chosen = self.get_node(element)
 
         if self.head.element == element:
-            remove_first()
-        elif self.tail.node == element:
-            remove_last()
-        elif self.get_length > 0 and chosen != None:
+            self.remove_first()
+        elif self.tail.element == element:
+            self.remove_last()
+        elif self.get_length() > 0 and chosen != None:
             support_node = chosen
-            support_node.next.previous = chosen.previous
-            support_node.previous.next = chosen.next
+            chosen.previous.next = support_node.next
+            chosen.next.previous = support_node.previous
             self.length -= 1
 
 
     # Método booleano que nos dice si un elemento está en la lista o no.
     def contains(self, element):
-        support_node = self.search_node(element)
+        support_node = self.get_node(element)
 
         if self.length == 0:
             return False
@@ -259,7 +260,7 @@ class List(object):
     # Si las longitudes son distintas, si el objeto recibido es nulo o si un elemento
     # es nulo y en la otra no. Si no pasó todo esto entonces serán iguales.
     def equals(self, recived_object):
-        if self.length != recived_object.length or recived_object == None:
+        if self.length != recived_object.length or recived_object == None: # Falta hacer parse
             return False
         else:
             own = self.head
@@ -301,5 +302,12 @@ if __name__ == '__main__':
     l.add_end("1")
     l.add_end("2")
     l.add_end("3")
-    l.add("4", 1)
+    l.add_end("4")
+    l.remove("3")
+    print(l.get_length())
+    #l.add("4", 1)
+    print(l.get_node("4"))
+    #print(l.equals([1,2,3]))
+    print(l.to_string())
+    l.clean()
     print(l.to_string())
