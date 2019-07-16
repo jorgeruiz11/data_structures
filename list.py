@@ -286,7 +286,7 @@ class List(object):
             t_node = self.tail
 
             while current_node != t_node:
-                str += current_node.element + ","
+                str += current_node.element + ", "
                 current_node = current_node.next
 
             str += t_node.element + "]"
