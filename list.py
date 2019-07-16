@@ -3,7 +3,7 @@
 
 """
 File: list.py
-Autor: Jorge Ruiz.
+Author: Jorge Ruiz.
 """
 
 # Clase para listas doblemente ligadas en python.

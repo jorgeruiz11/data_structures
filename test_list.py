@@ -3,7 +3,7 @@
 
 """
 File: test_list.py
-Autor: Jorge Ruiz.
+Author: Jorge Ruiz.
 """
 
 import unittest
