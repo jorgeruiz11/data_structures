@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-File: list.py
+File: test_list.py
 Autor: Jorge Ruiz.
 """
 
