@@ -30,9 +30,17 @@ class TestList(unittest.TestCase):
         self.assertEqual(List.to_string(List), '[3, 4]')
         print(List.to_string(List))
 
+    # Prueba unitaria para el método de elimina primero en la clase lista.
+    def test_remove_first(self):
+        l = List()
+        l.remove_first()
+        self.assertEqual(l.to_string(), '[4]')
+        print(l.to_string() + "remove method")
+
     # Prueba para el método que regresa la longitud en la clase lista.
     def test_get_length(self):
         self.assertEqual(List.get_length(List), 2)
+        print(List.to_string(List))
 
 
 
